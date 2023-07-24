@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:review_book/src/spalsh/page/splash_page.dart';
+import 'package:review_book/src/root/page/root_page.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -20,8 +20,12 @@ class _AppState extends State<App> {
       routes: [
         GoRoute(
           path: '/',
-          builder: (context, state) => const SplashPage(),
+          builder: (context, state) => const RootPage(),
         ),
+        // GoRoute(
+        //   path: '/init',
+        //   builder: (context, state) => const InitPage(),
+        // ),
         // GoRoute(
         //   path: '/detail',
         //   builder: (context, state) => const DetailPage(),

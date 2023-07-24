@@ -20,7 +20,7 @@ class AppDataLoadState extends Equatable {
   const AppDataLoadState({this.status = CommonStateStatus.init});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [status];
 
   AppDataLoadState copyWith({
     CommonStateStatus? status,

@@ -30,6 +30,8 @@ dependencies:
   matcher: ^0.12.15
   json_annotation: ^4.8.1
   google_fonts: ^4.0.4
+  hydrated_bloc: ^9.1.2
+  path_provider: ^2.0.15
 
 dev_dependencies:
   flutter_test:
