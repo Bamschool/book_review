@@ -5,10 +5,13 @@ import 'package:review_book/src/common/components/app_font.dart';
 class Btn extends StatelessWidget {
   final Function() onTap;
   final String text;
+  final Color? backgroundColor;
+
   const Btn({
     Key? key,
     required this.onTap,
     required this.text,
+    this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -20,7 +23,7 @@ class Btn extends StatelessWidget {
           vertical: 15,
         ),
         decoration: BoxDecoration(
-          color: const Color(0xffF4aa2b),
+          color: backgroundColor ?? const Color(0xffF4aa2b),
           borderRadius: BorderRadius.circular(7),
         ),
         child: AppFonts(

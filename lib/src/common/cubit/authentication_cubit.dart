@@ -16,7 +16,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState>
   ) : super(const AuthenticationState());
 
   void init() {
-    _authenticationRepository.logout();
+    // _authenticationRepository.logout();
     _authenticationRepository.user.listen((user) {
       _userStateChangedEvent(user);
     });
@@ -35,21 +35,27 @@ class AuthenticationCubit extends Cubit<AuthenticationState>
       if (result == null) {
         emit(
           state.copyWith(
+            user: user,
             status: AuthenticationStatus.unAuthenticated,
           ),
         );
+      } else {
+        emit(
+          state.copyWith(
+            user: result,
+            status: AuthenticationStatus.authentication,
+          ),
+        );
       }
-      emit(
-        state.copyWith(
-          user: result,
-          status: AuthenticationStatus.authentication,
-        ),
-      );
 
       //로그인 상태
     }
 
     notifyListeners();
+  }
+
+  void reLoad() {
+    _userStateChangedEvent(state.user);
   }
 
   void googleLogin() async {

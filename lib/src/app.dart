@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:review_book/src/common/cubit/authentication_cubit.dart';
+import 'package:review_book/src/common/repository/user_repository.dart';
+import 'package:review_book/src/home/page/home_page.dart';
 import 'package:review_book/src/root/page/root_page.dart';
+import 'package:review_book/src/signup/page/cubit/signup_cubit.dart';
 import 'package:review_book/src/signup/page/signup_page.dart';
 
 import 'login/pages/login_page.dart';
@@ -27,7 +30,7 @@ class _AppState extends State<App> {
         var authStatus = context.read<AuthenticationCubit>().state.status;
         switch (authStatus) {
           case AuthenticationStatus.authentication:
-            break;
+            return '/home';
           case AuthenticationStatus.unAuthenticated:
             return '/signup';
           case AuthenticationStatus.error:
@@ -49,8 +52,17 @@ class _AppState extends State<App> {
           builder: (context, state) => const LoginPage(),
         ),
         GoRoute(
+          path: '/home',
+          builder: (context, state) => const HomePage(),
+        ),
+        GoRoute(
           path: '/signup',
-          builder: (context, state) => const SignUpPage(),
+          builder: (context, state) => BlocProvider(
+            create: (context) => SignUpCubit(
+                context.read<AuthenticationCubit>().state.user!,
+                context.read<UserRepository>()),
+            child: const SignUpPage(),
+          ),
         ),
         // GoRoute(
         //   path: '/init',
