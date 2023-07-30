@@ -11,6 +11,9 @@ class NaverBookInfoResults extends Equatable {
   final int? start;
   final int? display;
   final List<NaverBookInfo?>? items;
+
+  const NaverBookInfoResults.init()
+      : this(start: 1, display: 10, items: const []);
   const NaverBookInfoResults({
     this.total,
     this.start,
@@ -28,4 +31,17 @@ class NaverBookInfoResults extends Equatable {
         display,
         items,
       ];
+
+  NaverBookInfoResults copyWith({
+    int? total,
+    int? start,
+    int? display,
+    List<NaverBookInfo?>? items,
+  }) {
+    return NaverBookInfoResults(
+        total: total ?? this.total,
+        start: start ?? this.start,
+        display: display ?? this.display,
+        items: [...this.items ?? [], ...items ?? []]);
+  }
 }

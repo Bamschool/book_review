@@ -24,7 +24,7 @@ dependencies:
   go_router: ^10.0.0
   equatable: ^2.0.5
   source_span: ^1.9.1
-  test_api: ^0.5.1
+  test_api: ^0.6.0
   nested: ^1.0.0
   logging: ^1.2.0
   matcher: ^0.12.15

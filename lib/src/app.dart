@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:review_book/src/common/cubit/authentication_cubit.dart';
+import 'package:review_book/src/common/repository/naver_api_repository.dart';
 import 'package:review_book/src/common/repository/user_repository.dart';
 import 'package:review_book/src/home/page/home_page.dart';
 import 'package:review_book/src/root/page/root_page.dart';
+import 'package:review_book/src/search/cubit/search_book_cubit.dart';
+import 'package:review_book/src/search/page/search_page.dart';
 import 'package:review_book/src/signup/page/cubit/signup_cubit.dart';
 import 'package:review_book/src/signup/page/signup_page.dart';
 
@@ -28,9 +31,14 @@ class _AppState extends State<App> {
       refreshListenable: context.read<AuthenticationCubit>(),
       redirect: (context, state) {
         var authStatus = context.read<AuthenticationCubit>().state.status;
+        print(state.uri.toString());
+
+        var blockPageInAuthenticationState = ['/', '/login', '/signup'];
         switch (authStatus) {
           case AuthenticationStatus.authentication:
-            return '/home';
+            return blockPageInAuthenticationState.contains(state.uri.toString())
+                ? '/home'
+                : state.uri.toString();
           case AuthenticationStatus.unAuthenticated:
             return '/signup';
           case AuthenticationStatus.error:
@@ -40,7 +48,7 @@ class _AppState extends State<App> {
           case AuthenticationStatus.init:
             break;
         }
-        return null;
+        return state.path;
       },
       routes: [
         GoRoute(
@@ -54,6 +62,14 @@ class _AppState extends State<App> {
         GoRoute(
           path: '/home',
           builder: (context, state) => const HomePage(),
+        ),
+        GoRoute(
+          path: '/search',
+          builder: (context, state) => BlocProvider(
+            create: (context) =>
+                SearchBookCubit(context.read<NaverBookRepository>()),
+            child: const SearchPage(),
+          ),
         ),
         GoRoute(
           path: '/signup',

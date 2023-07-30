@@ -32,6 +32,20 @@ class NaverBookSearchOption extends Equatable {
         display,
         query,
       ];
+
+  NaverBookSearchOption copyWith({
+    String? query,
+    int? display,
+    int? start,
+    NaverBookSearchType? sort,
+  }) {
+    return NaverBookSearchOption(
+      query: query ?? this.query,
+      display: display ?? this.display,
+      start: start ?? this.start,
+      sort: sort ?? this.sort,
+    );
+  }
 }
 
 enum NaverBookSearchType {

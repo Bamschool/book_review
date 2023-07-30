@@ -58,9 +58,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState>
     _userStateChangedEvent(state.user);
   }
 
-  void googleLogin() async {
-    await _authenticationRepository.signInWithGoogle();
-  }
+  void googleLogin() async {}
 
   void appleLogin() async {
     await _authenticationRepository.signInWithApple();
